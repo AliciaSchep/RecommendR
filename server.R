@@ -100,7 +100,7 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(input$button,{
-    gh_pkgs <- tryCatch(get_github(input$gh_repo), error = function(e) NULL)
+    gh_pkgs <- tryCatch(get_github(input$gh_repo), error = function(e){print(e);return(NULL)})
     updateSelectizeInput(session, 'in_pkgs',
                          selected = gh_pkgs,
                          choices = all_pkgs,  
