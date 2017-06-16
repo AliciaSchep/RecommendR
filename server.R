@@ -92,10 +92,10 @@ shinyServer(function(input, output, session) {
   #choices = all_pkgs,
   updateSelectizeInput(session, 'in_pkgs', choices = all_pkgs,  server = TRUE)
   
-  output$packages <- renderText({
+  output$packages <- renderPrint({
     
     # text recommendation here
-    str_c(make_pred(input$in_pkgs, input$method, input$n), collapse = "\n")
+    cat(str_c(make_pred(input$in_pkgs, input$method, input$n), collapse = "\n"))
     
   })
   
