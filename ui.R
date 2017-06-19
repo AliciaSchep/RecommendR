@@ -18,9 +18,9 @@ shinyUI(fluidPage(
       br(),br(),
       numericInput("n","Number of packages to recommend", 
                    value = 8, min = 1, max = 50, step = 1),
-      radioButtons("method","Recommendation Algorithm",
-                   choiceNames = c("Matrix factorization","User based collaborative filtering",
-                                   "Content-based"), choiceValues = c("ALS","UBCF","CONTENT"))
+      radioButtons("method","Recommendation based on:",
+                   choiceNames = c("Similar Users and Packages","Similar Users",
+                                   "Similar Package Content"), choiceValues = c("ALS","UBCF","CONTENT"))
     ),
     
     # Show a plot of the generated distribution
