@@ -106,5 +106,56 @@ shinyServer(function(input, output, session) {
                          choices = all_pkgs,  
                          server = TRUE)
   })
+ 
+  observeEvent(input$gh_help,{
+    showModal(modalDialog(
+      title = "Getting packages from Github",
+      "Rather than inputting packages one by one, you can import all the packages used by a",
+      "public Github repository.",
+      "If the repository is an R package, R packages used will be extracted",
+      "from the Imports and Depends fields of the DESCRIPTION file,",
+      "removing base packages. Otherwise, packages are extracted from",
+      "R and R markdown files",
+      easyClose = TRUE
+    ))
+  })
+  
+  observeEvent(input$als_help,{
+    showModal(modalDialog(
+      title = "Recommending based on similar users and packages",
+      "This algorithm uses matrix factorization via alternating least squares",
+      "to decompose the input repository-package matrix into a matrix of repositories and",
+      "latent factors and packages and latent factors. The latent factors take into account",
+      "the similarity between users and the similarity between packages.",
+      easyClose = TRUE
+    ))
+  })
+   
+  observeEvent(input$ubcf_help,{
+    showModal(modalDialog(
+      title = "Recommending based on similar users",
+      "This algorithm finds users with a similar profile of packages as your input list.",
+      "Recommendations are based on what other packages those users employed.",
+      easyClose = TRUE
+    ))
+  })
+  
+  observeEvent(input$content_help,{
+    showModal(modalDialog(
+      title = "Recommending based on package content",
+      "This algorithm finds packages with similar content to your input.",
+      "Package \"content\" is determined using package documentation.",
+      "Documentation in `man` folder was concatenated & cleaned prior to",
+      "computing the TF-IDF (Term Frequency-Inverse Document Frequency).",
+      "When providing multiple input packages, TF-IDF",
+      "vector is averaged across input packages. Package recommendations are based",
+      "on most similar packages using cosine similarity.",
+      "The advantage of a content based approach is that it will recommend packages",
+      "that are very new or have not been used in one of the github repos analyzed.",
+      easyClose = TRUE
+    ))
+  })
+  
+  
   
 })

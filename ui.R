@@ -1,6 +1,5 @@
 library(shiny)
-
-#pkgs <- available.packages()[,"Package"]
+library(shinythemes)
 
 shinyUI(fluidPage(
   
@@ -10,22 +9,33 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      helpText("RecommendR is an app that suggests other R packages you might", 
+               "be interested in based on packages you are already using/considering for a project."),
       selectizeInput(
         'in_pkgs', 'Packages I like/use', choices = NULL, multiple = TRUE
       ),
-      textInput('gh_repo',"Github Repository"),
+      textInput('gh_repo',
+                tagList("Github repository",
+                        actionLink("gh_help","", icon = icon("question-circle-o"))),
+                placeholder = "e.g. r-lib/gh"),
       actionButton("button", "Read packages from Github", width = "100%"),
       br(),br(),
       numericInput("n","Number of packages to recommend", 
                    value = 8, min = 1, max = 50, step = 1),
       radioButtons("method","Recommendation based on:",
-                   choiceNames = c("Similar Users and Packages","Similar Users",
-                                   "Similar Package Content"), choiceValues = c("ALS","UBCF","CONTENT"))
+                   choiceNames = list(tagList("Similar Users & Packages",
+                                              actionLink("als_help","", icon = icon("question-circle-o"))),
+                                   tagList("Similar Users",
+                                           actionLink("ubcf_help","", icon = icon("question-circle-o"))),
+                                   tagList("Similar Package Content",
+                                           actionLink("content_help","", icon = icon("question-circle-o")))), 
+                   choiceValues = c("ALS","UBCF","CONTENT"))
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
       verbatimTextOutput("packages")
     )
-  )
+  ),
+  theme = shinytheme("flatly")
 ))
