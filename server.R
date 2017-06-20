@@ -68,6 +68,7 @@ recommenders <- readRDS("recommenders.Rds")
 all_pkgs <- rownames(recommenders$CONTENT@tfidf)
 cf_pkgs <- colnames(recommenders$UBCF@train)
 
+pkg_table <- readRDS("package_table.Rds")
 
 check_pkgs <- function(pkgs, method){
   if (method != "CONTENT" && !any(cf_pkgs %in% pkgs)){
@@ -94,13 +95,15 @@ make_pred <- function(pkgs, method, n){
   return(recs)
 }
 
+## Server function -----------------------------------------------------------------------------------------
+
 shinyServer(function(input, output, session) {
   
   
   #choices = all_pkgs,
   updateSelectizeInput(session, 'in_pkgs', choices = all_pkgs,  server = TRUE)
   
-  output$packages <- renderPrint({
+  output$packages <- renderDataTable({
     
     if (length(input$in_pkgs) > 0 && !check_pkgs(input$in_pkgs, input$method)){
       showModal(modalDialog(
@@ -110,10 +113,15 @@ shinyServer(function(input, output, session) {
         "any minimum level of observed use.",
         easyClose = TRUE
       ))
+    } else if (length(input$in_pkgs) > 0){
+      # get recommendation
+      recs <- data_frame(rank = seq_len(input$n), package = make_pred(input$in_pkgs, input$method, input$n))
+      out <- left_join(recs, pkg_table)
+      print(out)
+      return(out)
+    } else{
+      return(NULL)
     }
-    # text recommendation here
-    cat(str_c(make_pred(input$in_pkgs, input$method, input$n), collapse = "\n"))
-    
   })
   
   observeEvent(input$button,{

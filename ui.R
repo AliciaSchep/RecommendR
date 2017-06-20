@@ -34,7 +34,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      verbatimTextOutput("packages")
+      dataTableOutput("packages")
     )
   ),
   theme = shinytheme("flatly")
