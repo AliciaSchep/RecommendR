@@ -97,6 +97,8 @@ make_pred <- function(pkgs, method, n){
 
 ## Server function -----------------------------------------------------------------------------------------
 
+n_recs <- 100
+
 shinyServer(function(input, output, session) {
   
   
@@ -115,14 +117,16 @@ shinyServer(function(input, output, session) {
       ))
     } else if (length(input$in_pkgs) > 0){
       # get recommendation
-      recs <- data_frame(rank = seq_len(input$n), package = make_pred(input$in_pkgs, input$method, input$n))
+      recs <- data_frame(rank = seq_len(n_recs), package = make_pred(input$in_pkgs, input$method, n_recs))
       out <- left_join(recs, pkg_table)
-      print(out)
       return(out)
     } else{
       return(NULL)
     }
-  })
+  },options = list(
+    pageLength = 10,
+    lengthMenu = c(5, 10, 25)
+  ))
   
   observeEvent(input$button,{
     gh_pkgs <- tryCatch(get_github(input$gh_repo), error = function(e){print(e);return(NULL)})
