@@ -68,6 +68,14 @@ recommenders <- readRDS("recommenders.Rds")
 all_pkgs <- rownames(recommenders$CONTENT@tfidf)
 cf_pkgs <- colnames(recommenders$UBCF@train)
 
+
+check_pkgs <- function(pkgs, method){
+  if (method != "CONTENT" && !any(cf_pkgs %in% pkgs)){
+    return(FALSE)
+  }
+  return(TRUE)
+}
+
 make_pred <- function(pkgs, method, n){
   if (method == "CONTENT"){
     ix <- which(all_pkgs %in% pkgs)
@@ -94,6 +102,15 @@ shinyServer(function(input, output, session) {
   
   output$packages <- renderPrint({
     
+    if (length(input$in_pkgs) > 0 && !check_pkgs(input$in_pkgs, input$method)){
+      showModal(modalDialog(
+        title = "Insufficient data!",
+        "Not enough R files used in training the model called the input package(s).",
+        "Try the \"Similar Package Content\" recommendation method, which does not require",
+        "any minimum level of observed use.",
+        easyClose = TRUE
+      ))
+    }
     # text recommendation here
     cat(str_c(make_pred(input$in_pkgs, input$method, input$n), collapse = "\n"))
     
