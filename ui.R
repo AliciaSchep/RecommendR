@@ -20,10 +20,10 @@ shinyUI(fluidPage(
                 placeholder = "e.g. r-lib/gh"),
       actionButton("button", "Read packages from Github", width = "100%"),
       br(),br(),
-      radioButtons("method","Recommendation based on:",
-                   choiceNames = list(tagList("Similar Package Use",
+      radioButtons("method","Recommend:",
+                   choiceNames = list(tagList("Complementary packages",
                                               actionLink("als_help","", icon = icon("question-circle-o"))),
-                                      tagList("Similar Package Content",
+                                      tagList("Similar packages",
                                               actionLink("content_help","", icon = icon("question-circle-o")))), 
                    choiceValues = c("ALS","CONTENT"))
     ),
