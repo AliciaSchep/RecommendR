@@ -21,13 +21,11 @@ shinyUI(fluidPage(
       actionButton("button", "Read packages from Github", width = "100%"),
       br(),br(),
       radioButtons("method","Recommendation based on:",
-                   choiceNames = list(tagList("Similar Users & Packages",
+                   choiceNames = list(tagList("Similar Package Use",
                                               actionLink("als_help","", icon = icon("question-circle-o"))),
-                                   tagList("Similar Users",
-                                           actionLink("ubcf_help","", icon = icon("question-circle-o"))),
-                                   tagList("Similar Package Content",
-                                           actionLink("content_help","", icon = icon("question-circle-o")))), 
-                   choiceValues = c("ALS","UBCF","CONTENT"))
+                                      tagList("Similar Package Content",
+                                              actionLink("content_help","", icon = icon("question-circle-o")))), 
+                   choiceValues = c("ALS","CONTENT"))
     ),
     
     # Show a plot of the generated distribution

@@ -151,20 +151,11 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$als_help,{
     showModal(modalDialog(
-      title = "Recommending based on similar users and packages",
+      title = "Recommending based on package use",
       "This algorithm uses matrix factorization via alternating least squares",
       "to decompose the input repository-package matrix into a matrix of repositories and",
       "latent factors and packages and latent factors. The latent factors take into account",
       "the similarity between users and the similarity between packages.",
-      easyClose = TRUE
-    ))
-  })
-   
-  observeEvent(input$ubcf_help,{
-    showModal(modalDialog(
-      title = "Recommending based on similar users",
-      "This algorithm finds users with a similar profile of packages as your input list.",
-      "Recommendations are based on what other packages those users employed.",
       easyClose = TRUE
     ))
   })
@@ -179,7 +170,7 @@ shinyServer(function(input, output, session) {
       "When providing multiple input packages, TF-IDF",
       "vector is averaged across input packages. Package recommendations are based",
       "on most similar packages using cosine similarity.",
-      "The advantage of a content based approach is that it will recommend packages",
+      "One advantage of a content based approach is that it will recommend packages",
       "that are very new or have not been used in one of the github repos analyzed.",
       easyClose = TRUE
     ))
