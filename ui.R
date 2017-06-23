@@ -9,8 +9,10 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
-      helpText("RecommendR is an app that suggests other R packages you might", 
-               "be interested in based on packages you are already using/considering for a project."),
+      helpText("RecommendR is an app that suggests R packages you might", 
+               "be interested in based on packages you are already considering for a project."),
+      tags$style(type='text/css', 
+                 ".selectize-input { font-size: 1.25em; line-height: 1.25em;} .control-label { font-size: 1.25em; } .radio { font-size: 1.1em}"),
       selectizeInput(
         'in_pkgs', 'Packages I like/use', choices = NULL, multiple = TRUE
       ),
