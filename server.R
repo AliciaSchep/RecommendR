@@ -151,8 +151,9 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$als_help,{
     showModal(modalDialog(
-      title = "Recommending based on package use",
-      "This algorithm uses matrix factorization via alternating least squares",
+      title = "Recommending complementary packages",
+      "Compelementary packages are recommended based on package use in Github repositories.",
+      "Matrix factorization via alternating least squares is used",
       "to decompose the input repository-package matrix into a matrix of repositories and",
       "latent factors and packages and latent factors. The latent factors take into account",
       "the similarity between users and the similarity between packages.",
@@ -162,14 +163,14 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$content_help,{
     showModal(modalDialog(
-      title = "Recommending based on package content",
-      "This algorithm finds packages with similar content to your input.",
-      "Package \"content\" is determined using package documentation.",
-      "Documentation in `man` folder was concatenated & cleaned prior to",
+      title = "Recommending similar packages",
+      "Similar packages are recommended based on similarity between the",
+      "documentation for each package.",
+      "Documentation in the 'man' folder for each package was concatenated & cleaned prior to",
       "computing the TF-IDF (Term Frequency-Inverse Document Frequency).",
       "When providing multiple input packages, TF-IDF",
       "vector is averaged across input packages. Package recommendations are based",
-      "on most similar packages using cosine similarity.",
+      "on the most similar packages using cosine similarity of the TF-IDF.",
       "One advantage of a content based approach is that it will recommend packages",
       "that are very new or have not been used in one of the github repos analyzed.",
       easyClose = TRUE
