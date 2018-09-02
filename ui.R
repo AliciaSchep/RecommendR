@@ -16,12 +16,6 @@ shinyUI(fluidPage(
       selectizeInput(
         'in_pkgs', 'Packages I like/use', choices = NULL, multiple = TRUE
       ),
-      textInput('gh_repo',
-                tagList("Github repository",
-                        actionLink("gh_help","", icon = icon("question-circle-o"))),
-                placeholder = "e.g. r-lib/gh"),
-      actionButton("button", "Read packages from Github", width = "100%"),
-      br(),br(),
       radioButtons("method","Recommend:",
                    choiceNames = list(tagList("Complementary packages",
                                               actionLink("als_help","", icon = icon("question-circle-o"))),
